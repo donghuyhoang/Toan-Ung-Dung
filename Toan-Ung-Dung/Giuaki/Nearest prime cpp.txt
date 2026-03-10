@@ -1,0 +1,40 @@
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+bool is_prime(int n) {
+    if (n <= 1) return false;
+    for (int i = 2; i <= sqrt(n); ++i) {
+        if (n % i == 0) return false;
+    }
+    return true;
+}
+
+int nearest_prime(int N) {
+    int lower_prime = N;
+    while (lower_prime > 1 && !is_prime(lower_prime)) {
+        --lower_prime;
+    }
+
+    int upper_prime = N;
+    while (!is_prime(upper_prime)) {
+        ++upper_prime;
+    }
+
+    if (N - lower_prime <= upper_prime - N) {
+        return lower_prime;
+    } else {
+        return upper_prime;
+    }
+}
+
+int main() {
+    int N;
+    cout << "Nhap so N: ";
+    cin >> N;
+
+    int closest_prime = nearest_prime(N);
+    cout << "So nguyen to gan nhat voi " << N << " la: " << closest_prime << endl;
+
+    return 0;
+}
